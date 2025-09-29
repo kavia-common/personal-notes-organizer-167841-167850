@@ -1,0 +1,24 @@
+SHELL := /usr/bin/env bash
+
+# Root-level CI Makefile exposing common gradle-like targets without requiring ./gradlew.
+
+.PHONY: help
+help:
+	@echo "CI targets:"
+	@echo "  make check           - Guarded 'gradle check' (no-op if android missing)"
+	@echo "  make assembleDebug   - Guarded assembleDebug (no-op if android missing)"
+	@echo "  make prebuild-android-then-assemble - Prebuild then guarded assembleDebug"
+
+.PHONY: check
+check:
+	@./gradle-check.sh
+
+.PHONY: assembleDebug
+assembleDebug:
+	@./scripts/ci-gradle-wrapper.sh :assembleDebug
+
+.PHONY: prebuild-android-then-assemble
+prebuild-android-then-assemble:
+	@cd notes_frontend && npm ci || npm install
+	@cd notes_frontend && npm run prebuild:android
+	@./scripts/ci-gradle-wrapper.sh :assembleDebug

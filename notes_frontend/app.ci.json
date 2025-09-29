@@ -1,0 +1,8 @@
+{
+  "ci": {
+    "notes": "CI guidance for React Native (Expo-managed) app",
+    "prebuildCommand": "npm run prebuild:android",
+    "guardedGradleCommand": "../scripts/ci-gradle-wrapper.sh :assembleDebug",
+    "checkCommand": "../gradle-check.sh"
+  }
+}

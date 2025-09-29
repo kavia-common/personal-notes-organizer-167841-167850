@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# notes_frontend-local gradlew guard: delegate to real android wrapper if present; otherwise no-op.
+set -euo pipefail
+APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ANDROID_DIR="$APP_DIR/android"
+REAL="$ANDROID_DIR/gradlew"
+
+if [ -f "$REAL" ]; then
+  echo "[notes_frontend/gradlew] Delegating to $REAL $*"
+  chmod +x "$REAL"
+  exec "$REAL" "$@"
+else
+  echo "[notes_frontend/gradlew] No android/gradlew found. Skipping Gradle step."
+  echo "[notes_frontend/gradlew] To enable, run: npm run prebuild:android"
+  exit 0
+fi

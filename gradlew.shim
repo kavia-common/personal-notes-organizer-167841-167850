@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Shim to forward CI calls to the guarded ./gradlew.
+set -euo pipefail
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec "$DIR/gradlew" "$@"

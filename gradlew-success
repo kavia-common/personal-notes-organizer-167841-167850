@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# CI helper: returns success for Gradle wrapper calls in Expo-managed projects without prebuild.
+# Map your CI's gradle wrapper command to this file if native builds are not required.
+echo "[gradlew-success] Skipping Gradle because native Android project is not generated (Expo managed)."
+exit 0

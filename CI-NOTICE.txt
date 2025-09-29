@@ -1,0 +1,14 @@
+Expo managed project: No native Android 'android/' or './gradlew' exists until prebuild.
+Fix your CI by using the safe wrappers or prebuild:
+
+Safe skip (no native build):
+- bash ./scripts/android-check.sh
+- bash ./scripts/ci-gradle-wrapper.sh help
+- make android-check
+- make gradle
+
+Real native build:
+- cd notes_frontend && npm run prebuild:android
+- then run Gradle tasks
+
+If your CI insists on './gradlew', point it to the provided shim or wrapper scripts.

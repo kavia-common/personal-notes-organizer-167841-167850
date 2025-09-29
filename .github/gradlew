@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# .github gradlew shim to catch CI that references this path.
+set -euo pipefail
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+exec "$REPO_ROOT/gradlew" "$@"

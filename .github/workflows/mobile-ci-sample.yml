@@ -1,0 +1,46 @@
+name: Mobile CI (Sample)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies (frontend)
+        working-directory: ./personal-notes-organizer-167841-167850/notes_frontend
+        run: npm ci
+
+      - name: Lint
+        working-directory: ./personal-notes-organizer-167841-167850/notes_frontend
+        run: npm run lint
+
+      - name: Android check (safe, skips if no wrapper)
+        working-directory: ./personal-notes-organizer-167841-167850
+        run: bash ./scripts/android-check.sh
+
+      # Optional: Uncomment to prebuild (requires Java/Android SDK) THEN Gradle
+      # - name: Setup Java
+      #   uses: actions/setup-java@v4
+      #   with:
+      #     java-version: '17'
+      #     distribution: 'temurin'
+      #
+      # - name: Expo prebuild (Android)
+      #   working-directory: ./personal-notes-organizer-167841-167850/notes_frontend
+      #   run: npm run prebuild:android
+      #
+      # - name: Gradle help (post-prebuild)
+      #   working-directory: ./personal-notes-organizer-167841-167850
+      #   run: bash ./scripts/ci-gradle-wrapper.sh help

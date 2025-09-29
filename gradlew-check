@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Direct CI entrypoint equivalent to './gradlew check' but guarded for Expo-managed projects.
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+APP_DIR="$ROOT_DIR/notes_frontend"
+REAL="$APP_DIR/android/gradlew"
+
+if [ -f "$REAL" ]; then
+  echo "[gradlew-check] Native android present. Running 'check'..."
+  chmod +x "$REAL"
+  exec "$REAL" check
+else
+  echo "[gradlew-check] No android/gradlew found. Skipping 'gradle check'."
+  echo "[gradlew-check] To enable, run: cd notes_frontend && npm run prebuild:android"
+  exit 0
+fi

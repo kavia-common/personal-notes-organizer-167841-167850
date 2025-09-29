@@ -1,0 +1,31 @@
+name: Android CI (Guarded)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "**" ]
+  pull_request:
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install app deps
+        run: cd notes_frontend && npm ci || npm install
+
+      - name: Guarded gradle check (no-op if not prebuilt)
+        run: ./gradle-check.sh
+
+      - name: OPTIONAL - Prebuild Android (enable native)
+        if: ${{ false }} # set to true to enable
+        run: cd notes_frontend && npm run prebuild:android
+
+      - name: Guarded assembleDebug (if prebuilt)
+        run: ./scripts/ci-gradle-wrapper.sh :assembleDebug

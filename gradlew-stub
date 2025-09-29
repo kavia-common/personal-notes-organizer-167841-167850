@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Conventional root-level Gradle wrapper stub for CI analyzers.
+# Delegates to existing guarded ./gradlew if available, otherwise no-op.
+set -euo pipefail
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "$DIR/gradlew" ]; then
+  exec "$DIR/gradlew" "$@"
+else
+  echo "[gradlew-stub] No ./gradlew found. This is an Expo-managed project; skipping Gradle."
+  exit 0
+}

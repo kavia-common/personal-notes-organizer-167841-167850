@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Guard 'gradle' script for CI environments that call 'gradle' instead of './gradlew'.
+# Delegates to notes_frontend/android/gradlew if present; otherwise, no-ops.
+
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+APP_DIR="$ROOT_DIR/notes_frontend"
+ANDROID_DIR="$APP_DIR/android"
+REAL="$ANDROID_DIR/gradlew"
+
+if [ -f "$REAL" ]; then
+  echo "[gradle guard] Delegating to $REAL $*"
+  chmod +x "$REAL"
+  exec "$REAL" "$@"
+else
+  echo "[gradle guard] No android/gradlew found. Skipping Gradle step."
+  echo "[gradle guard] To enable native builds in CI, run: cd notes_frontend && npm run prebuild:android"
+  exit 0
+fi

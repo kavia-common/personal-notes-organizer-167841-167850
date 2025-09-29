@@ -1,0 +1,9 @@
+# Explicitly include wrapper shims for CI
+!/gradlew
+!/gradle
+!/gradlew.bat
+!/gradle-shim.sh
+!/gradle-wrapper-mapping.sh
+!/scripts/**
+!/android/**
+!/notes_frontend/android/**

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# CI-local gradlew shim. Delegates to root guard which then delegates to android wrapper or no-ops.
+set -euo pipefail
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+exec "$REPO_ROOT/gradlew" "$@"

@@ -1,0 +1,8 @@
+{
+  "managedWorkflow": true,
+  "notes": "This project uses Expo-managed workflow; native android project is generated via expo prebuild.",
+  "wrapper": "./gradlew",
+  "ciWrapper": "./gradlew-ci",
+  "check": "./gradle-check.sh",
+  "assemble": "./scripts/ci-gradle-wrapper.sh :assembleDebug"
+}

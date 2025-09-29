@@ -1,0 +1,12 @@
+{
+  "name": "personal-notes-organizer",
+  "private": true,
+  "workspaces": [
+    "notes_frontend"
+  ],
+  "scripts": {
+    "gradle:check": "./gradle-check.sh",
+    "gradle:assemble": "./scripts/ci-gradle-wrapper.sh :assembleDebug",
+    "ci:android:prebuild": "cd notes_frontend && npm ci || npm install && npm run prebuild:android"
+  }
+}

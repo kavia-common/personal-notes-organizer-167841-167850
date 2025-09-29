@@ -1,0 +1,6 @@
+# Ensure shell scripts use LF endings for executability in CI
+*.sh text eol=lf
+gradlew text eol=lf
+gradlew-ci text eol=lf
+gradle text eol=lf
+notes_frontend/android/gradlew text eol=lf
