@@ -1,0 +1,4 @@
+{
+    "command": "npm run lint",
+    "working_directory": "/home/kavia/workspace/code-generation/personal-notes-organizer-167841-167850/notes_frontend"
+}
